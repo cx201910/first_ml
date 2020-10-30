@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Endpoint, MLAlgorithm, MLAlgorithmStatus, MLRequest
+from apps.endpoints.models import ABTest
+from apps.endpoints.models import PredictStore
 
 class EndpointSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,7 +41,7 @@ class MLRequestSerializer(serializers.ModelSerializer):
             'created_at',
             'parent_mlalgorithm'
         ]
-        read_only_fiels = [
+        read_only_fields = [
             'id',
             'input_data',
             'full_response',
@@ -47,3 +49,40 @@ class MLRequestSerializer(serializers.ModelSerializer):
             'created_at',
             'parent_mlalgorithm'
         ]
+
+class ABTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ABTest   
+        fields = [
+            'id',
+            'title',
+            'created_by',
+            'created_at',
+            'ended_at',
+            'summary',
+            'parent_mlalgorithm_1',
+            'parent_mlalgorithm_2',
+        ] 
+        read_only_fields = [
+            'id',
+            'ended_at',
+            'created_at',
+            'summary',
+        ]
+
+class PredictStoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PredictStore
+        fields = [
+                'id',
+                'input_data',
+                'created_by',
+                'created_at',
+                'ml_algorithm',
+                'prediction',
+                'target', 
+        ]
+        read_only_fields = [
+                'created_at',
+                'prediction',
+                ] 
