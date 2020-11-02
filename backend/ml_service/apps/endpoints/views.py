@@ -209,6 +209,7 @@ class PredictStoreViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
         if serializer.is_valid(): 
             ml_algorithm_s = serializer.validated_data['ml_algorithm']   
             created_by_s = serializer.validated_data['created_by'] 
+            target = serializer.validated_data['target']
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -228,7 +229,7 @@ class PredictStoreViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
             input_data=json.dumps(data),
             full_response=prediction,
             response=label,
-            feedback="",
+            feedback=target,
             parent_mlalgorithm=algs[0], )
         ml_request.save()
 
@@ -242,6 +243,7 @@ class PredictStoreViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
         if PredictStore.objects.filter(id=pk).exists():
             instance = PredictStore.objects.get(id=pk) 
             instance.prediction = prediction
+            instance.target = target
             instance.save() 
         else:   
             serializer.save() 
