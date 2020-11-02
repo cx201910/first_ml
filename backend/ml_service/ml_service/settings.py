@@ -85,7 +85,10 @@ DATABASES = {
     }
 }
 
-
+# Heroku: Update database configuration from $DATABASE_URL.
+#import dj_database_url
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -127,6 +130,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
@@ -135,3 +139,6 @@ DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+=======
+django_heroku.settings(locals())
+>>>>>>> origin/main
